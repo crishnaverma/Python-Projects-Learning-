@@ -8,7 +8,6 @@ print('''
                     __/ |                      
                    |___/    ''')
 
-
 stages = ['''
   +---+
   |   |
@@ -51,7 +50,7 @@ stages = ['''
  /|\  |
  /    |
       |
-=========''', ''''
+=========''', '''
   +---+
   |   |
   O   |
@@ -60,56 +59,46 @@ stages = ['''
       |
 =========''']
 
-
-
-
 import random
-word_list=["camel","hen","book"]
 
-choice=random.choice(word_list)
-print(choice)
+word_list = ["camel", "hen", "book"]
+choice = random.choice(word_list)
+# print(choice)  # uncomment for debugging
 
-live=6
+lives = 6
+correct_list = []
+game_over = False
 
-space_holder=""
-for no_letter in choice:
-    space_holder+="_"
-print(space_holder)
+# Create initial display
+display = "_" * len(choice)
+print(display)
 
-
-correct_list=[]
-game_over= False
 while not game_over:
-
-    print("****************************<???>/6 LIVES LEFT****************************")
-
-    gess_word=input("Enter the letter: ").lower()
+    print(f"\n**************************** {lives}/6 LIVES LEFT ****************************")
+    guess = input("Enter a letter: ").lower()
 
     gess=""
     for letter in choice:
-        if letter==gess_word:
-            gess+=letter
-            if gess_word in choice:
-                 if gess_word not in correct_list:
-                     correct_list.append(gess_word)
+        if letter == guess:
+            new_display += letter
+            if guess not in correct_list:
+                correct_list.append(guess)
         elif letter in correct_list:
-            gess +=letter
+            new_display += letter
         else:
-            gess+="_"
-    print("Word to guess: "+gess)
+            new_display += "_"
 
-    if gess_word not in choice:
-        live-=1
-       
-        print(f"You guessed {gess_word}, that's not in the word. You lose a life.")
+    print("Word to guess:", new_display)
 
-        if live == 0:
-            game_over=True
-            print(f"***********************IT WAS {gess_word}! YOU LOSE**********************")
+    if guess not in choice:
+        lives -= 1
+        print(f"You guessed '{guess}', that's not in the word. You lose a life.")
+        if lives == 0:
+            game_over = True
+            print(f"*********************** IT WAS '{choice}'! YOU LOSE ***********************")
 
-    
-    if "_" not in gess:
-        game_over=True
-        print("****************************YOU WIN****************************")
+    if "_" not in new_display:
+        game_over = True
+        print("**************************** YOU WIN ****************************")
 
-    print(stages[6-live])
+    print(stages[6 - lives])
