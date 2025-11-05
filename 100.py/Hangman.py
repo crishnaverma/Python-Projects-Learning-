@@ -8,8 +8,6 @@ print('''
                     __/ |                      
                    |___/    ''')
 
-
-
 stages = ['''
   +---+
   |   |
@@ -61,6 +59,9 @@ stages = ['''
       |
 =========''']
 
+
+
+
 import random
 
 word_list = ["camel", "hen", "book"]
@@ -79,6 +80,7 @@ while not game_over:
     print(f"\n**************************** {lives}/6 LIVES LEFT ****************************")
     guess = input("Enter a letter: ").lower()
 
+    new_display =""
     gess=""
     for letter in choice:
         if letter == guess:
