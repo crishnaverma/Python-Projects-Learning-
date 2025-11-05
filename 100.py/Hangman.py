@@ -1,3 +1,5 @@
+import random
+
 print(''' 
  _                                             
 | |                                            
@@ -59,50 +61,60 @@ stages = ['''
       |
 =========''']
 
-
-
-
-import random
-
 word_list = ["camel", "hen", "book"]
 choice = random.choice(word_list)
-# print(choice)  # uncomment for debugging
+# print(choice)  # uncomment to debug
 
 lives = 6
-correct_list = []
+correct_letters = set()
+wrong_letters = set()
 game_over = False
 
-# Create initial display
 display = "_" * len(choice)
 print(display)
 
 while not game_over:
     print(f"\n**************************** {lives}/6 LIVES LEFT ****************************")
-    guess = input("Enter a letter: ").lower()
+    # keep asking until we get a valid single letter (no numbers, no symbols, not empty)
+    while True:
+        guess = input("Enter a letter: ").strip().lower()
+        if len(guess) != 1:
+            print("Please enter exactly one character.")
+            continue
+        if not guess.isalpha():
+            print("Please enter a letter (a–z). Numbers and symbols are not allowed.")
+            continue
+        if guess in correct_letters or guess in wrong_letters:
+            print(f"You already tried '{guess}'. Try a different letter.")
+            continue
+        break
 
-    new_display =""
-    gess=""
+    # Update display
+    if guess in choice:
+        correct_letters.add(guess)
+    else:
+        wrong_letters.add(guess)
+        lives -= 1
+        print(f"You guessed '{guess}', that's not in the word. You lose a life.")
+        if lives == 0:
+            game_over = True
+            print(f"*********************** IT WAS '{choice.upper()}'! YOU LOSE ***********************")
+
+    new_display = ""
     for letter in choice:
-        if letter == guess:
-            new_display += letter
-            if guess not in correct_list:
-                correct_list.append(guess)
-        elif letter in correct_list:
+        if letter in correct_letters:
             new_display += letter
         else:
             new_display += "_"
 
     print("Word to guess:", new_display)
 
-    if guess not in choice:
-        lives -= 1
-        print(f"You guessed '{guess}', that's not in the word. You lose a life.")
-        if lives == 0:
-            game_over = True
-            print(f"*********************** IT WAS '{choice}'! YOU LOSE ***********************")
-
     if "_" not in new_display:
         game_over = True
         print("**************************** YOU WIN ****************************")
 
-    print(stages[6 - lives])
+    # show hangman stage (make sure index never goes out of range)
+    stage_index = max(0, 6 - lives)
+    if stage_index > 6:
+        stage_index = 6
+    print(stages[stage_index])
