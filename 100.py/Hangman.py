@@ -65,8 +65,14 @@ stages = ['''
       |
 =========''']
 
-word_list = ["camel", "hen", "book"]
-choice = random.choice(word_list)
+words = {
+    "easy": ["cat", "dog", "cow"],
+    "medium": ["planet", "rocket", "forest"],
+    "hard": ["algorithm", "neutron", "galaxy"]
+}
+level = input("Choose difficulty (easy/medium/hard): ").lower()
+choice = random.choice(words[level])
+
 # print(choice)  # uncomment to debug
 
 lives = 6
