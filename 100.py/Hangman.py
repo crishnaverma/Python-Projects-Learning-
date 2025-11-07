@@ -1,3 +1,7 @@
+import winsound
+winsound.Beep(700, 300)  # beep sound
+
+
 import random
 
 print(''' 
