@@ -46,7 +46,7 @@ def make_coffee(drink, ingredients):
 machine_on = True
 
 while machine_on:
-    ask_user = input("What would you like? (espresso/latte/cappuccino): ").lower()
+    ask_user = input("What would you like? (espresso/latte/cappuccino) or Type 'menu' to see menu: ").lower()
     
     if ask_user == "off":
         machine_on = False
@@ -63,5 +63,9 @@ while machine_on:
             payment = money_process()
             if is_transaction_successful(payment, drink["cost"]):
                 make_coffee(ask_user, drink["ingredients"])
+    elif ask_user == "menu":
+        for drink, info in MENU.items():
+             print(f"{drink.title()}: ${info['cost']}")
+
     else:
         print("Invalid choice. Please select espresso, latte, or cappuccino.")
