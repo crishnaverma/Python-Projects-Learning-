@@ -36,4 +36,3 @@ s = Student("Krishna", 10, 85)
 print(s.name())
 print(s.get_roll_no())
 print(s.get_marks())
-
