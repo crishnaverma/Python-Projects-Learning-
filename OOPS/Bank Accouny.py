@@ -18,7 +18,7 @@ class Bank_acc:
     def view_balance (self):
         print(f"Your Account balance is{self.balance}")
 
-o1 = bank_acc(1254,"Krishna",584214865)
+o1 = Bank_acc(1254,"Krishna",584214865)
 o1.deposit(1)
 o1.view_balance()
 o1.withdraw(100)
