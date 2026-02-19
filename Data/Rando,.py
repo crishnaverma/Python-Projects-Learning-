@@ -3,8 +3,10 @@ with open("Data/data.json") as f:
     data = json.load(f)
 
 num_dic={"one":1,"two":2, "three":3,"four":4,"five":5}
+clean_data = []
+unique_set = set()
 
-def clean_data(data):
+def better_data(data):
     # for rating 
     for user in data:
         raw_data=str(user["rating"]).strip().lower()
@@ -18,6 +20,13 @@ def clean_data(data):
             user["age"] = "none"
         
 #removeing duplication
-        
+        if user["name"] in unique_set:
+            continue
+        unique_set.add(user["name"])
+        clean_data.append(user)
+    return clean_data 
 
-print(clean_data(data))
+
+print(better_data(data))
+with open("Data/data.json", "w") as f:
+    json.dump(clean_data, f)
