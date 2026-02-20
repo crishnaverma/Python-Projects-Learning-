@@ -27,6 +27,18 @@ def better_data(data):
     return clean_data 
 
 
-print(better_data(data))
-with open("Data/data.json", "w") as f:
-    json.dump(clean_data, f)
+#getting insight about review
+def insight(data):
+    poor_review = 0
+    review_tot = 0
+    for user in data:
+        review_tot += float(user["rating"])
+        if float(user["rating"])<=3:
+            poor_review+=1
+    
+    print(f"average review = {review_tot/len(data)}")
+    print(f"Total poor review= {poor_review}")
+    
+print(better_data(data))        
+insight(data)
+
